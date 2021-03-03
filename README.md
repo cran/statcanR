@@ -3,14 +3,17 @@
 
 # statcanR
 
-# <img src="man/figures/LOGO.png" align="right" />
-
 <!-- badges: start -->
 
 [![Travis build
 status](https://travis-ci.org/warint/statcanR.svg?branch=master)](https://travis-ci.org/warint/statcanR)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/warint/statcanR?branch=master&svg=true)](https://ci.appveyor.com/project/warint/statcanR)
+[![Mentioned in
+Awesome](https://awesome.re/mentioned-badge.svg)](https://github.com/SNStatComp/awesome-official-statistics-software)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/statcanR)](https://CRAN.R-project.org/package=statcanR)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/statcanR?color=blue)](https://cran.r-project.org/package=statcanR)
 <!-- badges: end -->
 
 Easily connect to Statistics Canada’s Web Data Service with R. Open
@@ -20,9 +23,12 @@ user’s R environment.
 
 ## Installation
 
-The released version of statcanR package is accessible through devtools.
+The released version of statcanR package is accessible through CRAN and
+devtools.
 
 ``` r
+install.packages("statcanR")
+
 install.packages("devtools")
 devtools::install_github('warint/statcanR')
 ```
@@ -30,7 +36,7 @@ devtools::install_github('warint/statcanR')
 ## Example
 
 This section presents an example of how to use the statcanR R package
-and its function sqs\_statcan\_data().
+and its function statcan\_data().
 
 The following example is provided to illustrate how to use the function.
 It consists in collecting some descriptive statistics about the Canadian
@@ -43,11 +49,13 @@ Statisitcs Canada’s webpage. Here is below a figure that illustrates
 this example, such as ‘27-10-0014-01’ for the Federal expenditures on
 science and technology, by socio-economic objectives.
 
-Once the table number is identified, the sqs\_statcan\_data() function
-is easy to use in order to collect the data, as following:
+Once the table number is identified, the statcan\_data() function is
+easy to use in order to collect the data, as following:
 
 ``` r
 library(statcanR)
+mydata <- statcan_data("27-10-0014-01","eng")
+# sqs_statcandata will be deprecated 
 mydata <- sqs_statcan_data("27-10-0014-01","eng")
 ```
 
@@ -66,8 +74,7 @@ the date and time you accessed the Information.
 
 Please refer to the [terms of
 licence](https://www.statcan.gc.ca/eng/reference/licence) before using
-the
-Information.
+the Information.
 
 ##### Acknowledgment of Source according to Statistics Canada Open Licence Agreement
 
@@ -75,14 +82,12 @@ Statistics Canada has a specific procedure regarding the ackowledgment
 of source :
 
 You shall include and maintain the following notice on all licensed
-rights of the
-    Information:
+rights of the Information:
 
     Source: Statistics Canada, name of product, reference date. Reproduced and distributed on an "as is" basis with the permission of Statistics Canada.
 
 Where any Information is contained within a Value-added Product, you
-shall include on such Value-added Product the following
-    notice:
+shall include on such Value-added Product the following notice:
 
     Adapted from Statistics Canada, name of product, reference date. This does not constitute an endorsement by Statistics Canada of this product.
 
@@ -98,32 +103,15 @@ Canada’s Open Economic Data. v0.1.0.
    title = {statcanR: Client for Statistics Canada's Open Economic Data},
    author = {Thierry Warin and Romain {Le Duc}},
    note = {R package version 0.1.0},
-   url = {http://github.com/warint/statcanR},
+   url = {https://github.com/warint/statcanR},
    year = {2019},
+   doi = "10.6084/m9.figshare.10544735.v1"
  }
 ```
-
-### Why SQS?
-
-SQS stands for SKEMA Quantum Studio, a research and technological
-development centre based in Montreal, Canada, that serves as the engine
-room for the SKEMA Global lab in AI.
-
-SKEMA Quantum Studio is also a state-of-the-art platform developed by
-our team that enables scholars, students and professors to access one of
-the most powerful analytical tools in higher education. By using data
-science and artificial intelligence within the platform, new theories,
-methods and concepts are being developed to study globalisation,
-innovation and digital transformations that our society faces.
-
-To learn more about the SKEMA Quantum Studio and the mission of the
-SKEMA Global Lab in AI, please visit the following websites :
-[SQS](https://quantumstudio.skemagloballab.io) ; [Global
-Lab](https://skemagloballab.io/).
 
 ### Acknowledgments
 
 The authors would like to thank the Center for Interuniversity Research
 and Analysis of Organizations (CIRANO, Montreal) for its support, as
-well as Thibault Senegas, Marine Leroi and Martin Paquette at SKEMA
-Global Lab in AI. However, errors and omissions are ours.
+well as Thibault Senegas, Marine Leroi and Martin Paquette. However,
+errors and omissions are ours.

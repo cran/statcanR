@@ -8,20 +8,85 @@
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Thierry Warin" />
 
 
 <title>statCanR</title>
 
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+ul > li > .anchor-section {display: none;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '' || x.matches(':empty')) {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -31,14 +96,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -47,9 +114,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -116,9 +183,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -287,7 +351,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -305,7 +370,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(statcanR)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(statcanR)</span></code></pre></div>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
 <p>statcanR provides the R user with a consistent process to collect data from Statistics Canada’s data portal. It provides access to all Statistics Canada’ open economic data (formerly known as CANSIM tables) now identified by product IDs (PID) by the new Statistics Canada’s Web Data Service: <a href="https://www150.statcan.gc.ca/n1/en/type/data" class="uri">https://www150.statcan.gc.ca/n1/en/type/data</a>.</p>
@@ -313,31 +378,33 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div id="quick-start" class="section level2">
 <h2>Quick start</h2>
 <p>First, install statcanR:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;warint/statcanR&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;warint/statcanR&quot;</span>)</span></code></pre></div>
 <p>Next, call statcanR to make sure everything is installed correctly.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(statcanR)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(statcanR)</span></code></pre></div>
 </div>
 <div id="practical-usage" class="section level1">
 <h1>Practical usage</h1>
-<p>This section presents an example of how to use the statcanR R package and its function sqs_statcan_data().</p>
+<p>This section presents an example of how to use the statcanR R package and its function statcan_data().</p>
 <p>The following example is provided to illustrate how to use the function. It consists in collecting some descriptive statistics about the Canadian labour force at the federal, provincial and industrial levels, on a monthly basis.</p>
 <p>With a simple web search ‘statistics canada wages by industry metropolitan area monthly’, the table number can easily be found on Statisitcs Canada’s webpage. Here is below a figure that illustrates this example, such as ‘27-10-0014-01’ for the Federal expenditures on science and technology, by socio-economic objectives.</p>
-<p>Once the table number is identified, the sqs_statcan_data() function is easy to use in order to collect the data, as following:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># Get data with sqs_statcan_data function</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">mydata &lt;-<span class="st"> </span><span class="kw">sqs_statcan_data</span>(<span class="st">&quot;27-10-0014-01&quot;</span>, <span class="st">&quot;eng&quot;</span>)</a></code></pre></div>
+<p>Once the table number is identified, the statcan_data() function is easy to use in order to collect the data, as following:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Get data with statcan_data function</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>mydata &lt;-<span class="st"> </span><span class="kw">statcan_data</span>(<span class="st">&quot;27-10-0014-01&quot;</span>, <span class="st">&quot;eng&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># sqs_statcandata will be depricated </span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>mydata &lt;-<span class="st"> </span><span class="kw">sqs_statcan_data</span>(<span class="st">&quot;27-10-0014-01&quot;</span>,<span class="st">&quot;eng&quot;</span>)</span></code></pre></div>
 <p>Should you want the same data in French, just replace the argument at the end of the function with “fra”.</p>
 <div id="code-architecture" class="section level2">
 <h2>Code architecture</h2>
 <p>This section describes the code architecture of the statcanR package.</p>
-<p>In details, the sqs_statcan_data() function has 2 arguments:</p>
+<p>In details, the statcan_data() function has 2 arguments:</p>
 <ol style="list-style-type: decimal">
 <li>tableNumber</li>
 <li>lang</li>
 </ol>
 <p>The ‘tableNumber’ argument simply refers to the table number of the Statistics Canada data table a user wants to collect, such as ‘27-10-0014-01’ for the Federal expenditures on science and technology, by socio-economic objectives, as an example.</p>
 <p>The second argument, ‘lang’, refers to the language. As Canada is a bilingual country, Statistics Canada displays all the economic data in both languages. Therefore, users can choose to collect satistics data tables in French or English by setting the lang argument with c(“fra”, “eng”).</p>
-<p>The code architecture of the sqs_statcan_data() function is as follows. The first step if to clean the table number in order to align it with the official typology of Statistics Canada’s Web Data Service. The second step is to create a temporary folder where all the data wrangling operations are performed. The third step is to check and select the correct language. The fourth step is to define the right URL where the actual data table is stored and then to download the .Zip container. The fifth step is to unzip the previously downloaded .Zip file to extract the data and metadata from the .csv files. The final step is to load the statistics data into a data frame called ‘sqs_data’ and to add the official table indicator name in the new ‘INDICATOR’ column.</p>
-<p>To be more precise about the sqs_statcan_data() function, here is below some further code description:</p>
+<p>The code architecture of the statcan_data() function is as follows. The first step if to clean the table number in order to align it with the official typology of Statistics Canada’s Web Data Service. The second step is to create a temporary folder where all the data wrangling operations are performed. The third step is to check and select the correct language. The fourth step is to define the right URL where the actual data table is stored and then to download the .Zip container. The fifth step is to unzip the previously downloaded .Zip file to extract the data and metadata from the .csv files. The final step is to load the statistics data into a data frame called ‘sqs_data’ and to add the official table indicator name in the new ‘INDICATOR’ column.</p>
+<p>To be more precise about the statcan_data() function, here is below some further code description:</p>
 <ul>
 <li><p><code>tableNumber &lt;- gsub(&quot;-&quot;, &quot;&quot;, substr(tableNumber, 1, nchar(tableNumber)-2))</code>: The first step is to clean the table number provided by the user in order to collect the overall data table related to the specific indicator the user is interested in. In fact, each indicator is an excerpt of the overall table. In addition, following the new Statistics Canada’s Web Data Service, the URL typology defined by REST API is stored in csv files by table numbers without a ‘-’. Also, the last 2 digits after the last ‘-’ refer to the specific excerpt of the original table. Therefore, following the Statistics Canada Web Data Service’s typology, the function first removes the ‘-’ and the last 2 digits from the user’s selection.</p></li>
 <li><p><code>if(lang == &quot;eng&quot;)</code> | <code>if(lang == &quot;fra&quot;)</code>: The second step is the ‘if statement’ to get the data in the correct language.</p></li>
@@ -347,7 +414,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li><p><code>data.table::fread(csv_file)</code>: The sixth step consists in loading the data table into a unique data frame. The fread() function from the data.table package is used for its higher performance.</p></li>
 <li><p><code>data$INDICATOR &lt;- as.character(0)</code> and <code>data$INDICATOR &lt;- as.character(read.csv(paste0(path,&quot;/temp/&quot;, tableNumber, &quot;_MetaData.csv&quot;))[1,1])</code>: The seventh step of the sqs_statcan_data() function consists in adding the name of the table from the metadata table.</p></li>
 <li><p><code>unlink(tempdir())</code>: The eighth step deletes the temporary folder used to download, unzip, extract and load the data.</p></li>
-<li><p><code>return(sqs_data)</code>: Finally, the last step of the sqs_statcan_data() function allows to return the value into the user’s environment.</p></li>
+<li><p><code>return(Data)</code>: Finally, the last step of the statcan_data() function allows to return the value into the user’s environment.</p></li>
 </ul>
 </div>
 </div>
