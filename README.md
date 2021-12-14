@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Travis build
-status](https://travis-ci.org/warint/statcanR.svg?branch=master)](https://travis-ci.org/warint/statcanR)
+status](https://travis-ci.com/warint/statcanR.svg?branch=master)](https://travis-ci.org/github/warint/statcanR)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/warint/statcanR?branch=master&svg=true)](https://ci.appveyor.com/project/warint/statcanR)
 [![Mentioned in
@@ -14,12 +14,26 @@ Awesome](https://awesome.re/mentioned-badge.svg)](https://github.com/SNStatComp/
 [![CRAN
 status](https://www.r-pkg.org/badges/version/statcanR)](https://CRAN.R-project.org/package=statcanR)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/statcanR?color=blue)](https://cran.r-project.org/package=statcanR)
+
 <!-- badges: end -->
+
+# Overview
 
 Easily connect to Statistics Canada’s Web Data Service with R. Open
 economic data (formerly known as CANSIM tables, now identified by
 Product IDs (PID)) are accessible as a data frame, directly in the
 user’s R environment.
+
+## Shiny App : statcanR ExploR
+
+<img src="man/figures/shiny.png" />
+
+For people less comfortable with R and to allow more people to have
+access to our package, we have also developed a Shiny
+application.Through the same logic present in our package, researchers
+can retrieve data from Statistics Canada.
+
+statcanR EploR is available [\[here\]](https://warin.ca/shiny/statcanr/)
 
 ## Installation
 
@@ -35,13 +49,13 @@ devtools::install_github('warint/statcanR')
 
 ## Example
 
-This section presents an example of how to use the statcanR R package
-and its function statcan\_data().
+This section presents an example of how to use the `statcanR` R package
+and its function `statcan_data()` and `statcan_download_data()`.
 
-The following example is provided to illustrate how to use the function.
-It consists in collecting some descriptive statistics about the Canadian
-Labour Force at the federal, provincial and industrial levels, on a
-monthly basis.
+The following example is provided to illustrate how to use the
+functions. It consists in collecting some descriptive statistics about
+the Canadian Labour Force at the federal, provincial and industrial
+levels, on a monthly basis.
 
 With a simple web search ‘statistics canada wages by industry
 metropolitan area monthly’, the table number can easily be found on
@@ -49,15 +63,33 @@ Statisitcs Canada’s webpage. Here is below a figure that illustrates
 this example, such as ‘27-10-0014-01’ for the Federal expenditures on
 science and technology, by socio-economic objectives.
 
-Once the table number is identified, the statcan\_data() function is
-easy to use in order to collect the data, as following:
+Once the table number is identified, the statcan_data() function is easy
+to use in order to collect the data, as following:
 
 ``` r
 library(statcanR)
 mydata <- statcan_data("27-10-0014-01","eng")
-# sqs_statcandata will be deprecated 
-mydata <- sqs_statcan_data("27-10-0014-01","eng")
 ```
+
+For the `statcan_download_data()` function there is no difference on how
+to use it, the only difference is that this function allow you to
+download the data in a csv file on top of having the data in your
+environment.
+
+``` r
+library(statcanR)
+mydata <- statcan_download_data("27-10-0014-01","eng")
+```
+
+### Video Tutorial
+
+Tutorial made by Professor Charles Saunders, Director of Master of
+Financial Economics Program at Western University
+[biography](https://economics.uwo.ca/people/faculty/saunders.html)
+
+Thanks!
+
+<https://www.youtube.com/embed/z9TDUlgT5lc>
 
 ### Statistics Canada Open Licence
 
