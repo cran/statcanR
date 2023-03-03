@@ -1,7 +1,7 @@
 Package: statcanR
 Type: Package
 Title: Client for Statistics Canada's Open Economic Data
-Version: 0.2.3
+Version: 0.2.4
 Authors@R: c(
     person("Thierry", "Warin", email = "thierry.warin@hec.ca", role =c("aut", "cre"), comment = c(ORCID = "0000-0002-5921-3428") ),
     person("Romain", "Le Duc", role = "aut"))
@@ -9,16 +9,18 @@ Description: An easy connection with R to Statistics Canada's Web Data Service. 
     Warin, Le Duc (2019) <doi:10.6084/m9.figshare.10544735>.
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.1.2
-Suggests: knitr, rmarkdown
+RoxygenNote: 7.2.3
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
 VignetteBuilder: knitr
-Imports: data.table, curl, httr, readr, tibble
+Imports: data.table, dplyr, ggplot2, reshape2, qs, qpdf, DT, curl,
+        httr, readr, tibble
 URL: https://github.com/warint/statcanR/
 BugReports: https://github.com/warint/statcanR/issues/
+Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2021-12-14 15:45:31 UTC; thierryw
+Packaged: 2023-03-03 15:13:29 UTC; warint_github
 Author: Thierry Warin [aut, cre] (<https://orcid.org/0000-0002-5921-3428>),
   Romain Le Duc [aut]
 Maintainer: Thierry Warin <thierry.warin@hec.ca>
 Repository: CRAN
-Date/Publication: 2021-12-14 22:30:02 UTC
+Date/Publication: 2023-03-03 15:30:02 UTC
