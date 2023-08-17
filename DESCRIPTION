@@ -1,7 +1,7 @@
 Package: statcanR
 Type: Package
 Title: Client for Statistics Canada's Open Economic Data
-Version: 0.2.5
+Version: 0.2.6
 Authors@R: c(
     person("Thierry", "Warin", email = "thierry.warin@hec.ca", role =c("aut", "cre"), comment = c(ORCID = "0000-0002-5921-3428") ),
     person("Romain", "Le Duc", role = "aut"))
@@ -18,9 +18,9 @@ URL: https://github.com/warint/statcanR/
 BugReports: https://github.com/warint/statcanR/issues/
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2023-08-10 15:18:50 UTC; warint_github
+Packaged: 2023-08-16 20:56:13 UTC; warint_github
 Author: Thierry Warin [aut, cre] (<https://orcid.org/0000-0002-5921-3428>),
   Romain Le Duc [aut]
 Maintainer: Thierry Warin <thierry.warin@hec.ca>
 Repository: CRAN
-Date/Publication: 2023-08-10 15:30:02 UTC
+Date/Publication: 2023-08-17 13:50:02 UTC

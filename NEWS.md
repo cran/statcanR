@@ -1,3 +1,7 @@
+# statcanR 0.2.6
+
+* fix server issue
+
 # statcanR 0.2.5
 
 * We have corrected statcan_search() function by removing top level code. You can now install statcanR package without an internet connection
